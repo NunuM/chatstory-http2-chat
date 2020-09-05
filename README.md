@@ -27,3 +27,4 @@ npm install
 HTTP_PORT=80 PORT=443 RECAPTCHA_KEY=YOUR_PRIVATE_KEY npm start
 ````
 
+If you are testing locally: https://localhost:4000 you must open two browsers to match with yourself, **two tabs** will not work.
