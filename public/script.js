@@ -160,7 +160,7 @@ const findMatch = () => {
                             findMatch();
                         });
 
-                    } else if(rsp.status === 409) {
+                    } else if (rsp.status === 409) {
 
                         alert("You were considered of being a bot");
                         quitChat();
@@ -220,15 +220,17 @@ const titleAlert = (msg) => {
 
     if ('hidden' in document && document.hidden) {
 
-        titleObj.handler = setInterval(() => {
-            document.title = messages[idx];
+        if (!titleObj.handler) {
+            titleObj.handler = setInterval(() => {
+                document.title = messages[idx];
 
-            idx += 1;
+                idx += 1;
 
-            if (idx === 2) {
-                idx = 0;
-            }
-        }, 1500);
+                if (idx === 2) {
+                    idx = 0;
+                }
+            }, 1500);
+        }
     }
 };
 
