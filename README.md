@@ -10,7 +10,7 @@ can check this chat application [here](https://chatstory.nunum.me)
 
 This chat is protected with [Google's RecaptchaV3](https://developers.google.com/recaptcha/docs/v3) for bot detection. After you create your account, change in [script import](https://github.com/NunuM/chatstory-http2-chat/blob/master/public/chat.html#L275) and [app script](https://github.com/NunuM/chatstory-http2-chat/blob/master/public/script.js#L151)
 
-**Note** : If you want to deploy it, you must change the auto-sign SSL certificate. 
+**Note** : If you want to deploy it into production, you must change the auto-sign SSL certificate. 
 
 ```bash
 git clone https://github.com/NunuM/chatstory-http2-chat.git
