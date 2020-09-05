@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Chat | ChatStory</title>
+
+    <meta name="theme-color" content="rgb(221, 83, 107)">
+
+    <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible"/>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"/>
+
+    <script src="script.js"></script>
+
+    <!-- styles imports -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+          integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+
+    <style>
+
+        @import url("https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700");
+
+        @keyframes fly-in {
+            0% {
+                transform: scale(.85) translateY(10%);
+                opacity: 0
+            }
+            to {
+                transform: scale(1) translateY(0);
+                opacity: 1
+            }
+        }
+
+        form, p {
+            margin: 0
+        }
+
+        body {
+            background-image: radial-gradient(circle at 100% 100%, rgba(221, 83, 107, 0.8), rgba(255, 192, 203, .05)), radial-gradient(circle at 100% 0, rgba(227, 173, 230, .05), rgba(227, 173, 230, .8)), radial-gradient(circle at 20% 50%, rgba(255, 255, 0, .5), rgba(255, 192, 203, .1))
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+            width: 100%;
+            height: 100vh;
+            background: hsla(0, 0%, 100%, .1);
+            box-shadow: 2px 1px 10px rgba(169, 166, 166, .4);
+            margin: 0 auto
+        }
+
+        .chat-log {
+            box-sizing: border-box;
+            padding: 16px;
+            overflow-y: auto
+        }
+
+        .chat-message {
+            display: flex;
+            align-items: center;
+            width: 100%;
+            transition: all .5s
+        }
+
+        .chat-message--right {
+            flex-direction: row-reverse
+        }
+
+        .chat-message--right .chat-message__text {
+            background: #edfbfb;
+            color: #333
+        }
+
+        .chat-message--right .chat-message__avatar-frame {
+            margin-left: 16px;
+            margin-right: 0
+        }
+
+        .chat-message + .chat-message--right, .chat-message--right + .chat-message {
+            margin-top: 32px
+        }
+
+        .chat-message--right + .chat-message:not(.chat-message--right) .chat-message__text, .chat-message:first-of-type .chat-message__text {
+            border-radius: 0 18px 18px
+        }
+
+        .chat-message:not(.chat-message--right) + .chat-message--right .chat-message__text, .chat-message:first-of-type .chat-message__text {
+            border-radius: 18px 0 18px 18px
+        }
+
+        .chat-message--right + .chat-message--right, .chat-message:not(.chat-message--right) + .chat-message:not(.chat-message--right) {
+            margin-top: 0
+        }
+
+        .chat-message--right + .chat-message--right .chat-message__avatar-frame, .chat-message:not(.chat-message--right) + .chat-message:not(.chat-message--right) .chat-message__avatar-frame {
+            visibility: hidden;
+            opacity: 0
+        }
+
+        .chat-message__avatar-frame {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            overflow: hidden;
+            margin-right: 16px
+        }
+
+        .chat-message__avatar {
+            height: 100%
+        }
+
+        .chat-message__text {
+            display: block;
+            max-width: 65%;
+            background: linear-gradient(#5867fb, #3f51b5);
+            border-radius: 14px;
+            box-sizing: border-box;
+            padding: 12px 16px;
+            font-size: 14px;
+            font-weight: 300;
+            color: #e4e3e3;
+            animation-duration: .3s;
+            animation-name: fly-in
+        }
+
+        .chat-input-area {
+            position: relative
+        }
+
+        .chat-input-area__input {
+            width: 100%;
+            background: hsla(0, 0%, 100%, .3);
+            border: none;
+            box-sizing: border-box;
+            padding: 16px 50px 16px 16px
+        }
+
+        .chat-input-area__input:focus {
+            outline: none
+        }
+
+        .chat-input-area__submit-button {
+            position: absolute;
+            top: 0;
+            right: 16px;
+            bottom: 0;
+            width: 30px;
+            height: 30px;
+            background-color: transparent;
+            background-image: url(send.svg);
+            background-position: 50%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            border: none;
+            margin: auto
+        }
+
+        nav {
+            position: absolute;
+            top: 5px;
+            right: 50%;
+            width: 100px;
+            height: 50px;
+            margin: 0 auto;
+            background-color: transparent;
+            background-position: 50%;
+            background-size: contain;
+            background-repeat: no-repeat;
+            border: none;
+        }
+
+        .chat-input-area__submit-button:focus {
+            outline: none
+        }
+
+        .chat-input-area__submit-button:hover {
+            cursor: pointer
+        }
+
+        .grecaptcha-badge {
+            visibility: hidden;
+        }
+
+    </style>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-162926094-2"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+
+        gtag('js', new Date());
+
+        gtag('config', 'UA-162926094-2');
+
+        gtag('event', 'chat', {'started': 'true'})
+    </script>
+
+</head>
+<body>
+
+<div class="modal" tabindex="-1" role="dialog" id="loadingmodal" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content" style="border: none; background-color: inherit;">
+            <div class="d-flex justify-content-center">
+                <div class="spinner-border text-warning" role="status">
+                    <span class="sr-only">Loading...</span>
+                </div>
+            </div>
+            <p class="h6 text-center text-white">
+                Searching for a match... or <a href="/index.html" style="color: #ffc107;" rel="nofollow">quit</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+
+<body>
+
+
+<div style="position: absolute; text-align: center; width: 100%; padding: 0; margin: 0;">
+
+    <button onclick="quitChat()"
+            style="background-color: rgba(85,45,60,0.1); float: left; border: none; border-bottom-right-radius: 1em; padding:10px; width: 60px; height: 50px;"
+            type="button" aria-label="Home">
+        <img width="30px" height="100%" src="home.svg"/>
+    </button>
+
+    <button id="leavebtn"
+            style="background-color: rgba(85,45,60,0.1); float: right; border: none; padding:10px; border-bottom-left-radius: 1em; width: 60px; height: 50px;"
+            onclick="leaveChat()"
+            type="button" aria-label="Close">
+        <img width="30px" height="100%" src="leave.svg">
+    </button>
+</div>
+
+
+<section class="chat-container">
+
+    <div id="chat-log" class="chat-log">
+
+    </div>
+
+    <p class="h6 text-muted text-center" style="height: 16px;">
+        <small  id="hint" style="display: none">
+            User is typing...
+        </small>
+    </p>
+
+    <div class="chat-input-area">
+        <input id="inputMessage" type="text" placeholder="Write something..." class="chat-input-area__input">
+
+        <button id="sendbtn" onclick="sendMsg()" class="chat-input-area__submit-button"></button>
+    </div>
+</section>
+
+</body>
+
+<!-- js imports -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+        integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+        integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+        crossorigin="anonymous"></script>
+<script src="https://www.google.com/recaptcha/api.js?render=6LcQ88QZAAAAAHQ46e1vFkvWRU0u8Y0zx8EQgYPk"></script>
+
+</body>
+</html>

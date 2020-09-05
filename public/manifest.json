@@ -1,0 +1,34 @@
+{
+  "short_name": "ChatStory",
+  "name": "Chat Story",
+  "lang": "en",
+  "description": "Talk with new random people on Internet for free. Debate others ideas, know  ant let's them know your interests, common, it will be fun!",
+  "start_url": "/index.html",
+  "background_color": "#dd536a",
+  "theme_color": "#dd536a",
+  "dir": "ltr",
+  "display": "fullscreen",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "icon-128x128.png",
+      "sizes": "128x128"
+    },
+    {
+      "src": "icon-192x192.png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "icon-256x256.png",
+      "sizes": "256x256"
+    },
+    {
+      "src": "icon-384x384.png",
+      "sizes": "384x384"
+    },
+    {
+      "src": "icon-512x512.png",
+      "sizes": "512x512"
+    }
+  ]
+}

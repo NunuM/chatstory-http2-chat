@@ -1,0 +1,19 @@
+{
+  "name": "chat-story-server",
+  "version": "1.0.0",
+  "description": "HTTP/2 Chat",
+  "homepage": "https://chatstory.nununm.me",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "nuno",
+  "license": "MIT",
+  "dependencies": {
+    "cookie": "^0.4.1",
+    "mime-types": "^2.1.27",
+    "uuidv4": "^6.2.3",
+    "form-data": "^3.0.0"
+  }
+}
