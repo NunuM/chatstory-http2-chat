@@ -24,6 +24,6 @@ npm install
 #### Run
 
 ````bash
-HTTP_PORT=80 PORT=443 RECAPTCHA_KEY=YOUR_KEY npm start
+HTTP_PORT=80 PORT=443 RECAPTCHA_KEY=YOUR_PRIVATE_KEY npm start
 ````
 
